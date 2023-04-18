@@ -2,11 +2,11 @@
 import fetchLocations from '@/lib/backend/fetchLocations'
 // Typing imports
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { APIerror, CurrentWeatherResponse } from '@/lib/types/apiResponses'
+import { APIerror, LocationsResponse } from '@/lib/types/apiResponses'
 
 const getCurrent = async (
   req: NextApiRequest,
-  res: NextApiResponse<CurrentWeatherResponse | APIerror>
+  res: NextApiResponse<LocationsResponse | APIerror>
 ) => {
   if (req.url) {
     // Create a URL object to extract the query parameters
