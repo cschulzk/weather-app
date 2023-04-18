@@ -1,0 +1,28 @@
+.appFooter{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: var(--header-footer-height);
+}
+
+.attribution{
+  padding: 0 10px 0 0;
+}
+
+.selectorContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  padding: 0 10px 0;
+  /* width: 100px; */
+}
+
+.radioButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}

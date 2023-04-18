@@ -1,0 +1,23 @@
+.weatherReport{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 50vh;
+}
+
+.boxOfCards{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.hide{
+  visibility: hidden;
+}
+
+.moreDaysButton{
+  display: flex;
+}

@@ -1,0 +1,29 @@
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  background-color: #595959;
+  height: 200px;
+  width: 170px;
+  border-radius: 2.5px;
+  padding: 5px;
+  margin-left: 15px;
+}
+
+.atGlance {
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dateText{
+  font-size: var(--font-size-medium);
+  font-weight: 200;
+}
+
+.cardText{
+  font-size: var(--font-size-small);
+}
