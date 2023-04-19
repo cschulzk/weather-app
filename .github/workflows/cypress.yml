@@ -2,6 +2,10 @@ on: pull_request
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
+    env:
+      WEATHER_API_BASE_URL: "http://api.weatherapi.com/v1"
+      WEATHER_API_KEY: "494fe269c84142fd9b0235755231304"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
