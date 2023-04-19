@@ -1,3 +1,4 @@
+name: Jest
 on: pull_request
 jobs:
   jest-run:

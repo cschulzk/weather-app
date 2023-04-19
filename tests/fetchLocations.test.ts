@@ -1,3 +1,4 @@
+import {expect, test} from '@jest/globals';
 import { LocationQuery } from "@/lib/types/weatherTypes/location";
 import fetchLocations from "../lib/backend/fetchLocations";
 

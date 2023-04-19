@@ -1,3 +1,4 @@
+import {expect, test} from '@jest/globals';
 import fetchForecast from "../lib/backend/fetchForecast";
 
 test(
