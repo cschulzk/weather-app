@@ -12,6 +12,6 @@ jobs:
       # Install NPM dependencies, cache them correctly
       # and run all Jest tests
       - name: Install dependencies
-        run: npm instal
+        run: npm install
       - name: Run jest
         run: npm test
