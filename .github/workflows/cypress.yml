@@ -1,6 +1,3 @@
-
-name: cypress-tests
-run-name: Run cypress tests
 on: pull_request
 jobs:
   cypress-run:
