@@ -3,6 +3,7 @@ import type { APIerror, ForecastResponse } from "@/lib/types/apiResponses";
 
 const fetchWeather = async (location: string) => {
   console.log(location);
+  // Change the default days query parameter to 3 once your API key transistions to the free version
   const forecast = await fetcher(`/api/getForecast?location=${location}&days=5&aqi=yes`)
   .then((res: ForecastResponse | APIerror) => {
     return res;

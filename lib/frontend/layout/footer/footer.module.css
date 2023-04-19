@@ -17,7 +17,6 @@
   justify-content: space-around;
   height: 100%;
   padding: 0 10px 0;
-  /* width: 100px; */
 }
 
 .radioButton {
@@ -25,4 +24,9 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+}
+
+.radioButton > input[type=radio] {
+  width: 15px;
+  height: 15px;
 }

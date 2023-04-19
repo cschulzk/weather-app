@@ -5,11 +5,15 @@
 
   --search-border: 1px solid #999999;
 
+  --font-size-tiny: 10pt;
   --font-size-small: 12pt;
   --font-size-medium: 16pt;
   --font-size-large: 20pt;
 
-  --header-footer-height: 10vh
+  --header-footer-height: 10vh;
+
+  --card-height: 200px;
+  --card-width: 170px;
 }
 
 * {
@@ -34,4 +38,26 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+@media (orientation: landscape) and (max-width: 1120px) {
+  :root {
+    --header-footer-height: 10vw;
+  }
+}
+
+@media (max-height: 1000px) {
+  :root {
+    --card-height: 160px;
+    --card-width: 150px;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
 }

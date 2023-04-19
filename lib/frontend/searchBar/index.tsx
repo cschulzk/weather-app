@@ -6,7 +6,7 @@ import { APIerror, ForecastResponse } from '@/lib/types/apiResponses';
 import { LocationQuery } from '@/lib/types/weatherTypes/location';
 import SuggestionsDropdown from './SuggestionsDropdown';
 
-type Callback = (submitValue: string) => void;
+type Callback = (submitValue: string) => Promise<void>;
 
 // Kept this compoent
 const SearchBar = ({placeholder, callback}: {placeholder: string; callback: Callback}) => {
@@ -15,18 +15,22 @@ const SearchBar = ({placeholder, callback}: {placeholder: string; callback: Call
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>, submitValue: string) => { 
     e.preventDefault();
-    callback(submitValue)
+    await callback(submitValue)
     setSearchValue('');
-    setSuggestions([])
+    setSuggestions([]);
   };
 
   const updateSuggestions = async (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value)
-    await fetcher(`/api/getLocations?search=${e.target.value}`)
-    .then((res: LocationQuery[] | APIerror) => {
-      setSuggestions(res as LocationQuery[])
-    },
-    (reason) => {console.error(reason)})
+    if (e.target.value.length < 3) {
+      setSuggestions([]);
+    } else {
+      await fetcher(`/api/getLocations?search=${e.target.value}`)
+      .then((res: LocationQuery[] | APIerror) => {
+        setSuggestions(res as LocationQuery[])
+      },
+      (reason) => {console.error(reason)});
+    }
   };
 
   return (

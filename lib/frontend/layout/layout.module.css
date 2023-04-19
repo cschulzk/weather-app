@@ -14,3 +14,9 @@
   width: 100vw;
   height: var(--header-footer-height);
 }
+
+@media (max-width: 1120px) {
+  .appContent {
+    height: calc(100vh - 2* var(--header-footer-height));
+  }
+}

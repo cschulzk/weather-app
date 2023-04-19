@@ -17,7 +17,7 @@ const WeatherHome = () => {
         placeholder={'Search by city name or zipcode'}
         callback={async (location) => setWeather(await fetchWeather(location))}
       />
-      <WeatherReport forecast={weather?.forecast.forecastday} />
+      <WeatherReport weather={weather} />
     </Layout>
   )
 }

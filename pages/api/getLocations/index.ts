@@ -17,8 +17,14 @@ const getCurrent = async (
     if (!search) {
       return res.status(400).json({error: 'Missing search parameter'})
     }
-    const current = await fetchLocations(search)
-    return res.status(200).json(current)
+    const locations = await fetchLocations(search)
+    // The API sometimes returns duplicates (the search 'asd' for example has two pairs of duplicates in the response),
+    // so it's necessary to filter out the duplicates before returning the response. 
+    const dedupedLocations = locations.filter((loc, i, array) => {
+      const locID = loc.id;
+      return array.findIndex(l => l.id === locID) === i;
+    })
+    return res.status(200).json(dedupedLocations)
   }
   res.status(400)
 }

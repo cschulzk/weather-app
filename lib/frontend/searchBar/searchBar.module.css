@@ -40,6 +40,11 @@
   background-color: #2B2A33;
 }
 
-.suggestionsDropdown :hover {
-  background-color: #464554;
+@media (max-width: 1120px) {
+  .searchBarContainer{
+    width: 80vw;
+  }
+  .suggestionContainer{
+    width: 80vw;
+  }
 }
