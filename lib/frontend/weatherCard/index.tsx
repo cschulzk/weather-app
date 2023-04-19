@@ -3,6 +3,7 @@ import { DayForecast } from "@/lib/types/weatherTypes/dayForecast";
 import { useContext } from "react";
 import Image from "next/image";
 import styles from "./weatherCard.module.css";
+import findWindDirection from "./findWindDirection";
 
 const WeatherCard = ({weatherDay}: {weatherDay: DayForecast}) => {
   const {units} = useContext(AppContext);
@@ -41,9 +42,10 @@ const WeatherCard = ({weatherDay}: {weatherDay: DayForecast}) => {
   : hoursForecast.reduce((prev, curr) => Math.min(prev, curr.wind_kph), 150)
 
   const windUnits = units.distance ==='mi' ? 'mph' : 'kph';
+  const windDirection = findWindDirection(hoursForecast)
 
-  const monthText = weatherDay.date.substring(5,7).replace('0','')
-  const dayText = weatherDay.date.substring(8,10).replace('0','')
+  const monthText = weatherDay.date.substring(5,7).replace(/0(?=\d)/,'')
+  const dayText = weatherDay.date.substring(8,10).replace('/0','/')
 
   return (
     <div className={styles.cardContainer}>
@@ -55,7 +57,8 @@ const WeatherCard = ({weatherDay}: {weatherDay: DayForecast}) => {
       <p className={styles.cardText}>Low: {lowTemp} {units.temperature}</p>
       <p className={styles.cardText}>Precip: {precipitation.chance}% of {precipitation.type}</p>
       <p className={styles.cardText}>Humidity: {dayForecast.avghumidity}%</p>
-      <p className={styles.cardText}>Wind: {minWindSpeed}-{maxWindSpeed} {windUnits}</p>
+      <p className={styles.cardText}>Wind: {minWindSpeed}-{maxWindSpeed} {windUnits} </p>
+      <p className={styles.cardText}>Wind Direction: {windDirection}</p>
       {/* Put a button at the bottom to allow users to view the hourly forecast */}
       {/* If hourly forecast is set to 'view' then transition a height change in this card and display hour tabs */}
     </div>
