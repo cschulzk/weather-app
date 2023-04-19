@@ -1,6 +1,9 @@
 
 name: cypress-tests
 run-name: Run cypress tests
+on:
+  pull-request:
+    - master
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
@@ -14,3 +17,4 @@ jobs:
         with:
           build: npm run build
           start: npm start
+          browser: firefox
