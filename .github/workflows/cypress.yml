@@ -2,6 +2,9 @@ on: pull_request
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
+    env:
+      WEATHER_API_BASE_URL: ${{vars.WEATHER_API_BASE_URL}}
+      WEATHER_API_KEY: ${{secrets.WEATHER_API_BASE_URL}}
 
     steps:
       - name: Checkout
