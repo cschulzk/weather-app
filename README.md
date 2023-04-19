@@ -29,9 +29,9 @@ As an introductory note, the free version of the weatherAPI only allows for 3-da
 
 Since your prefered framework is NextJS, I used a NextJS template app to generate the boilerplate for a Next app with TypeScript and ESLint. Both Typescript and ESLint are used to help reduce the number of bugs in the code and to detect any issues before production.  
 
-I opted to keep the references to the Weather API in the backend behind the apps API. That way the backend resources aren't exposed. The API key and baseURL are environment variables.  
+I opted to keep the references to the Weather API in the backend behind the Next API. That way the backend resources aren't exposed. The API key and baseURL are environment variables.  
 
-The wind speed and direction is not provided on a day basis. You can get current wind speed and direction or you can get hourly wind speed and direction forecasts (you can get the max wind speed forecast for a day, but not with a direction). To provide a wind speed and direction for the day, I took the min and max of the hourly wind speeds and displayed those as a range. To get the direction, I took the mode of the wind directions for each hour.  
+The wind speed and direction is not provided on a day basis. You can get current wind speed and direction or you can get hourly wind speed and direction forecasts (you can get the max wind speed forecast for a day, but not with a direction). To provide a wind speed and direction for the day, I took the min and max of the hourly wind speeds and displayed those as a range. To get the direction, I took the mode of the hourly wind directions. A method that provided a range of wind direcetions would be preferable, but that was not possible in the time constraints.    
 
 All of the 'fetch' variety of tests depend on the weather API being accessible. These will automatically fail if the weather API goes down. Additionally, for these tests to function properly, the environmental variable must be set correctly. The environmental variables are set through the Vercel interface and Github 'Secrets' and 'Variables' interfaces. The necessary data can be copied from there or I can share my .env file upon request.  
 
@@ -86,8 +86,10 @@ Feel free to elaborate on how you would improve any of the following topics
   The weather cards are quite ugly. Their design needs to be improved quite a bit. They are functional and readable, just not pretty.
    
 - Additional Features:  
-  An hourly forecast would be great. The API can give you down to 15 minutes increments. That might be a nit obscene, but it would be fun to build out that interface.
+  An hourly forecast would be great. The API can give you down to 15 minutes increments. That might be a bit obscene, but it would be fun to build out that interface.
 
   Some form of user accounts would be good. This would allow for persistence of unit preferences and features like a default location.  
 
-  I'd like to add a feature that uses the clients location to fetch the local weather for the user. This would be pretty simple to implement with the Geolocation API and a useEffect that waits for the user to allow permission.  
+  I'd like to add a feature that uses the clients location to fetch the local weather for the user. This would be pretty simple to implement with the Geolocation API and a useEffect that waits for the user to allow permission.
+
+  The homepage also needs more content. It's just a lot of blank space when you load (and even after the forecast is shown). This could be some weather related content, like the phases of the moon or something.  
