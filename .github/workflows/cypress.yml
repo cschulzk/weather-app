@@ -1,7 +1,7 @@
 
 name: cypress-tests
 run-name: Run cypress tests
-on: pull-request
+on: pull_request
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
