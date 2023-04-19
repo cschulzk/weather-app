@@ -17,10 +17,6 @@
   border: var(--search-border);
 }
 
-/* .searchBar :invalid {
-  border: var(--search-border);
-} */
-
 .suggestionsDropdown{
   display: flex;
   flex-direction: column;
@@ -38,6 +34,12 @@
   width: 50vw;
   height: 50px;
   background-color: #2B2A33;
+}
+
+@media (hover: hover) {
+  .suggestionContainer:hover {
+    background-color: #474554;
+  }
 }
 
 @media (max-width: 1120px) {

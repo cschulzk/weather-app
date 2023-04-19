@@ -1,23 +1,28 @@
-import { useState } from 'react';
-import type { Dispatch, SetStateAction, ChangeEvent, FormEvent} from 'react'
+import { useEffect, useState } from 'react';
+import type { ChangeEvent, FormEvent} from 'react'
 import styles from './searchBar.module.css'
 import fetcher from '../utils/fetcher';
-import { APIerror, ForecastResponse } from '@/lib/types/apiResponses';
+import { APIerror } from '@/lib/types/apiResponses';
 import { LocationQuery } from '@/lib/types/weatherTypes/location';
 import SuggestionsDropdown from './SuggestionsDropdown';
+import checkSearchInput, { SearchCheck } from '../utils/checkSearchInput';
 
 type Callback = (submitValue: string) => Promise<void>;
+const defaultSearchCheck: SearchCheck = {cause: '', prompt: false}
 
 // Kept this compoent
 const SearchBar = ({placeholder, callback}: {placeholder: string; callback: Callback}) => {
   const [searchValue, setSearchValue] = useState<string>('')
   const [suggestions, setSuggestions] = useState<LocationQuery[]>([])
+  const [searchCheck, setSearchCheck] = useState<SearchCheck>(defaultSearchCheck)
+  const [lastKeyPressed, setLastKeyPressed] = useState<NodeJS.Timeout>()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>, submitValue: string) => { 
     e.preventDefault();
     await callback(submitValue)
     setSearchValue('');
     setSuggestions([]);
+    setSearchCheck(defaultSearchCheck)
   };
 
   const updateSuggestions = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +36,22 @@ const SearchBar = ({placeholder, callback}: {placeholder: string; callback: Call
       },
       (reason) => {console.error(reason)});
     }
+
   };
+
+  useEffect(() => {
+      clearTimeout(lastKeyPressed)
+      if (searchValue.length === 0) {
+      setSearchCheck(defaultSearchCheck)
+    } else if (suggestions.length === 0) {
+      setLastKeyPressed(setTimeout(() => {
+        setSearchCheck(checkSearchInput(searchValue))
+      }, 1000))
+    } else {
+      setSearchCheck(defaultSearchCheck)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [suggestions.length, searchValue])
 
   return (
     <form className={styles.searchBarContainer} onSubmit={(e) => handleSubmit(e, searchValue)} >
@@ -47,7 +67,7 @@ const SearchBar = ({placeholder, callback}: {placeholder: string; callback: Call
         onChange={updateSuggestions}
         autoComplete="off"
       />
-      <SuggestionsDropdown suggestions={suggestions} handleSubmit={handleSubmit} />
+      <SuggestionsDropdown suggestions={suggestions} searchCheck={searchCheck} handleSubmit={handleSubmit} />
     </form>
   )
 };
