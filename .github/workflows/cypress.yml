@@ -1,0 +1,20 @@
+name: Cypress
+on: pull_request
+jobs:
+  cypress-run:
+    runs-on: ubuntu-22.04
+    env:
+      WEATHER_API_BASE_URL: ${{ vars.WEATHER_API_BASE_URL }}
+      WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          build: npm run build
+          start: npm start
+          browser: firefox

@@ -1,0 +1,18 @@
+name: Jest
+on: pull_request
+jobs:
+  jest-run:
+    runs-on: ubuntu-22.04
+    env:
+      WEATHER_API_BASE_URL: ${{ vars.WEATHER_API_BASE_URL }}
+      WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      # Install NPM dependencies, cache them correctly
+      # and run all Jest tests
+      - name: Install dependencies
+        run: npm install
+      - name: Run jest
+        run: npm test

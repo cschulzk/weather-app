@@ -1,0 +1,26 @@
+describe('Search Bar', () => {
+  it('Successfully loads', () => {
+    cy.visit('/')
+    cy.get('input[id*="search-bar"]')
+    cy.get('main > form > label').contains('Search')
+    cy.get('main > form > ul')
+  })
+  it('Returns autocomplete values', () => {
+    cy.visit('/')
+    cy.intercept('/api/getLocations**').as('getLocations')
+    cy.get('input[id*="search-bar"]').type('par')
+    cy.wait('@getLocations')
+    cy.get('main > form > ul').contains('Paris')
+  })
+  it('Returns forecast', () => {
+    cy.visit('/')
+    cy.intercept('/api/getForecast**').as('getForecast')
+    cy.get('input[id*="search-bar"]').type('30189{enter}')
+    cy.wait('@getForecast')
+    cy.get('main div').contains('High:')
+    cy.get('main div').contains('Low:')
+    cy.get('main div').contains('Precip:')
+    cy.get('main div').contains('Humidity:')
+    cy.get('main div').contains('Wind:')
+  })
+})

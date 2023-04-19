@@ -25,6 +25,8 @@ Your first goal is to have a working app, but feel free to improve the applicati
 
 ## Dev Notes
 
+The .env file was included in the repo so those with permission to view the repo would have access to it. I would not typically include the .env file.
+
 As a side note, the free version of the weatherAPI only allows for 3-day forecasts. The trial version (which my API key is on) allows for 14 days though.
 
 Since your prefered framework is NextJS, I used a NextJS template app to generate the boilerplate for a Next app with TypeScript and ESLint.
