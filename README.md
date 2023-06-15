@@ -1,39 +1,15 @@
 # Weather APP & API
-
-## Do not place this prompt or the corresponding code in a public repository!
-
----
-
-## Assignment:
-
-Your task is to utilize the free tier of https://www.weatherapi.com/ to build a web application that displays the 5 day forecast for a given location. The application must display the following information for each day, feel free to add additional information if you see fit:
-
-- Date
-- Temperature (High & Low)
-- Humidity
-- Precipitation
-- Wind Speed & Direction
-- Appropriate Weather Icon
-
-The application should also have a search capability that allows users to search for a location by city name or zip code. The search should be case-insensitive and handle errors gracefully if the user enters an invalid location.
-
-You should implement best practices with the UI and make the application mobile-responsive.
-
-You may use whatever framework or library you find useful, **but React is preferred**. URL routing is optional. Use a responsive design to ensure the application works well on mobile devices as well as desktop.
-
-Your first goal is to have a working app, but feel free to improve the application however you see fit.
-
+This applet is a sandbox for testing out new UI/UX frameworks and packages. 
 ## Dev Notes
-
 As an introductory note, the free version of the weatherAPI only allows for 3-day forecasts. The trial version (which my API key is on) allows for 14 days (https://www.weatherapi.com/pricing.aspx). I'm not sure what kind of reponse is sent if you request more than 3 days with a free version API key (I can't test it becasue mine is in the Pro trial). It may break the code. Once the API key transistions to the free version, the number of days that can be requested will need to be capped at 3.  
 
-Since your prefered framework is NextJS, I used a NextJS template app to generate the boilerplate for a Next app with TypeScript and ESLint. Both Typescript and ESLint are used to help reduce the number of bugs in the code and to detect any issues before production.  
+Both Typescript and ESLint are used to help reduce the number of bugs in the code and to detect any issues before production.  
 
 I opted to keep the references to the Weather API in the backend behind the Next API. That way the backend resources aren't exposed. The API key and baseURL are environment variables.  
 
 The wind speed and direction is not provided on a day basis. You can get current wind speed and direction or you can get hourly wind speed and direction forecasts (you can get the max wind speed forecast for a day, but not with a direction). To provide a wind speed and direction for the day, I took the min and max of the hourly wind speeds and displayed those as a range. To get the direction, I took the mode of the hourly wind directions. A method that provided a range of wind direcetions would be preferable, but that was not possible in the time constraints.    
 
-All of the 'fetch' variety of tests depend on the weather API being accessible. These will automatically fail if the weather API goes down. Additionally, for these tests to function properly, the environmental variable must be set correctly. The environmental variables are set through the Vercel interface and Github 'Secrets' and 'Variables' interfaces. The necessary data can be copied from there or I can share my .env file upon request.  
+All of the 'fetch' variety of tests depend on the weather API being accessible. These will automatically fail if the weather API goes down. Additionally, for these tests to function properly, the environmental variable must be set correctly. The environmental variables are set through the Vercel interface and Github 'Secrets' and 'Variables' interfaces.
 
 ### Justification for packages
 - dependencies: {  
@@ -55,8 +31,8 @@ All of the 'fetch' variety of tests depend on the weather API being accessible. 
 "eslint-plugin-cypress": "^2.13.2", -- The linter should also play nice with the testing library   
 "jest": "^29.5.0", -- Because unit tests are integral to good code hygeine. 
 "jest-environment-jsdom": "^29.5.0", -- For setting up the Jest test environment 
-"ts-jest": "^29.1.0", -- So developers don't have to run `tsc build` before running tests.  
-"ts-node": "^10.9.1", -- So developers don't have to run `tsc build` before launching the app in development mode.  
+"ts-jest": "^29.1.0", -- Required for testing the Typescript code with Jest.  
+"ts-node": "^10.9.1", -- Required for testing the Typescript code with Jest.  
 "typescript": "5.0.4" -- Because this is 2023 and you should be using types in your code. Even Python is doing it.  
 }  
 
@@ -69,8 +45,7 @@ To run the jest tests, the app doesn't need to be in development mode (it can be
 
 To run the Cypress tests, the app needs to first be in development mode. With the app in development mode, use the command `npm run cypress` to open the Cypress testing module. Select the 'E2E Testing'. Select your preferred browser click 'Start E2E Testing in {browser}'. This should navigate you to the 'Specs' page. There are two specs defined 'layout_spec' and 'search_function_spec'. Click on the spec you want to run to view the results.
 
-### Future Improvements
-
+## Future Improvements
 Feel free to elaborate on how you would improve any of the following topics
 
 - Code Structuring:  
