@@ -38,10 +38,10 @@ test(
 );
 
 test(
-  "Receive 5 forecast days.",  
+  "Receive 3 forecast days.",  
   async () => {
     const testLocation = '30189'
-    const forecast = await fetchForecast(testLocation, '5')
+    const forecast = await fetchForecast(testLocation, '3')
     
     const numDays = forecast?.forecast?.forecastday?.length;
     expect(numDays).toEqual(5);
