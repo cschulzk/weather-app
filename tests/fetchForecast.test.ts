@@ -44,7 +44,7 @@ test(
     const forecast = await fetchForecast(testLocation, '3')
     
     const numDays = forecast?.forecast?.forecastday?.length;
-    expect(numDays).toEqual(5);
+    expect(numDays).toEqual(3);
   }
 );
 
