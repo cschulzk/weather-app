@@ -13,9 +13,9 @@ All of the 'fetch' variety of tests depend on the weather API being accessible. 
 
 ### Justification for packages
 - dependencies: {  
-"next": "13.3.0", -- Your preferrence  
-"react": "18.2.0", -- Your preferrence  
-"react-dom": "18.2.0" -- Your preferrence  
+"next": "13.3.0",  -- Preference
+"react": "18.2.0",  
+"react-dom": "18.2.0"  
 }  
 - devDependencies: {  
 "@testing-library/jest-dom": "^5.16.5", -- For using jest to test functions  
