@@ -2,9 +2,9 @@
 import fetchLocations from '@/lib/backend/fetchLocations'
 // Typing imports
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { APIerror, LocationsResponse } from '@/lib/types/apiResponses'
+import type { APIerror, LocationsResponse } from '@/lib/types/apiResponses'
 
-const getCurrent = async (
+const getLocations = async (
   req: NextApiRequest,
   res: NextApiResponse<LocationsResponse | APIerror>
 ) => {
@@ -29,4 +29,4 @@ const getCurrent = async (
   res.status(400)
 }
 
-export default getCurrent;
+export default getLocations;
