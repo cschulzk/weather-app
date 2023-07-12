@@ -12,7 +12,7 @@ describe('Layout', () => {
   })
   it('Correct title', () => {
     cy.visit('/')
-    cy.get('header > h1').contains('Weather App')
+    cy.get('header h1').contains('Weather App')
   })
   it('Has unit preference selector', () => {
     cy.visit('/')

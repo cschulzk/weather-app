@@ -1,60 +1,68 @@
-import { useEffect, useState } from 'react';
-import type { ChangeEvent, FormEvent} from 'react'
+import { useState } from 'react';
+import type { ChangeEvent, FormEvent, KeyboardEventHandler} from 'react'
 import styles from './searchBar.module.css'
 import fetcher from '../utils/fetcher';
 import { APIerror } from '@/lib/types/apiResponses';
 import { LocationQuery } from '@/lib/types/weatherTypes/location';
 import SuggestionsDropdown from './SuggestionsDropdown';
 import checkSearchInput, { SearchCheck } from '../utils/checkSearchInput';
+import { useRouter } from 'next/router'
 
-type Callback = (submitValue: string) => Promise<void>;
 const defaultSearchCheck: SearchCheck = {cause: '', prompt: false}
 
-// Kept this compoent
-const SearchBar = ({placeholder, callback}: {placeholder: string; callback: Callback}) => {
+const WeatherSearchBar = () => {
+  const router = useRouter();
   const [searchValue, setSearchValue] = useState<string>('')
   const [suggestions, setSuggestions] = useState<LocationQuery[]>([])
   const [searchCheck, setSearchCheck] = useState<SearchCheck>(defaultSearchCheck)
   const [lastKeyPressed, setLastKeyPressed] = useState<NodeJS.Timeout>()
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>, submitValue: string) => { 
+  const fetchSuggestions = async (searchString: string) => {
+    await fetcher(`/api/getLocations?search=${searchString}`)
+    .then((res: LocationQuery[] | APIerror) => {
+      setSuggestions(res as LocationQuery[])
+    },
+    (reason) => {console.error(reason)});
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>, submitLocation: LocationQuery) => { 
     e.preventDefault();
-    await callback(submitValue)
     setSearchValue('');
     setSuggestions([]);
-    setSearchCheck(defaultSearchCheck)
+    setSearchCheck(defaultSearchCheck);
+    router.push(`/weather/${submitLocation.lat},${submitLocation.lon}`);
+    // Redirect to the page /weather/[location]
   };
 
-  const updateSuggestions = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleOnChange = async (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value)
-    if (e.target.value.length < 3) {
+    clearTimeout(lastKeyPressed)
+    if (e.target.value.length === 0) {
+      setSearchCheck(defaultSearchCheck)
+    } else if (e.target.value.length < 3) {
       setSuggestions([]);
     } else {
-      await fetcher(`/api/getLocations?search=${e.target.value}`)
-      .then((res: LocationQuery[] | APIerror) => {
-        setSuggestions(res as LocationQuery[])
-      },
-      (reason) => {console.error(reason)});
-    }
-
-  };
-
-  useEffect(() => {
-      clearTimeout(lastKeyPressed)
-      if (searchValue.length === 0) {
-      setSearchCheck(defaultSearchCheck)
-    } else if (suggestions.length === 0) {
+      await fetchSuggestions(e.target.value);
+    };
+    if (suggestions.length === 0) {
       setLastKeyPressed(setTimeout(() => {
-        setSearchCheck(checkSearchInput(searchValue))
+        setSearchCheck(checkSearchInput(e.target.value))
       }, 1000))
     } else {
       setSearchCheck(defaultSearchCheck)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [suggestions.length, searchValue])
+  }
+
+  const handleKeyDown: KeyboardEventHandler<HTMLElement> = async (e) => {
+    clearTimeout(lastKeyPressed)
+    if (e.key === 'Enter') {
+      // await fetchSuggestions(e.target.value);
+      // Add any logic you want to happen when Enter is pressed
+    };
+  };
 
   return (
-    <form className={styles.searchBarContainer} onSubmit={(e) => handleSubmit(e, searchValue)} >
+    <form className={styles.searchBarContainer}>
       <label htmlFor={'search-bar'} className={styles.searchLabel}>Search</label>
       <input 
         className={styles.searchBar}
@@ -62,9 +70,11 @@ const SearchBar = ({placeholder, callback}: {placeholder: string; callback: Call
         name='search-bar'
         id='search-bar'
         list='search-suggestions'
-        placeholder={placeholder}
+        placeholder={'Search by city name or zipcode'}
+        // Set value to searchValue.value
         value={searchValue.length > 0 ? searchValue : ''}
-        onChange={updateSuggestions}
+        onChange={handleOnChange}
+        onKeyDown={handleKeyDown}
         autoComplete="off"
       />
       <SuggestionsDropdown suggestions={suggestions} searchCheck={searchCheck} handleSubmit={handleSubmit} />
@@ -72,4 +82,4 @@ const SearchBar = ({placeholder, callback}: {placeholder: string; callback: Call
   )
 };
 
-export default SearchBar;
+export default WeatherSearchBar;
