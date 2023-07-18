@@ -8,8 +8,7 @@ const UnitsPreferenceSelector = () => {
   const usUnits: UnitsOfMeasursement = {system: "US", temperature: '°F', distance: 'mi'};
   const metricUnits: UnitsOfMeasursement = {system: "metric", temperature: '°C', distance: 'km'};
   return (
-    // <div className={styles.selectorContainer} >
-      <form className={styles.selectorContainer}>
+      <form>
         <fieldset className={styles.selectorContainer}>
           <legend>Units</legend>
             <div className={styles.radioButton}>
