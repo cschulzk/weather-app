@@ -1,5 +1,5 @@
 # Weather APP & API
-This applet is a sandbox for testing out new UI/UX frameworks and packages. 
+This applet is a sandbox for testing out new UI/UX frameworks, packages, designs, and so forth.
 ## Dev Notes
 As an introductory note, the free version of the weatherAPI only allows for 3-day forecasts. The trial version (which my API key is on) allows for 14 days (https://www.weatherapi.com/pricing.aspx). I'm not sure what kind of reponse is sent if you request more than 3 days with a free version API key (I can't test it becasue mine is in the Pro trial). It may break the code. Once the API key transistions to the free version, the number of days that can be requested will need to be capped at 3.  
 
